@@ -36,7 +36,5 @@ namespace FinPort.Models
             Notifications = new HashSet<Notification>();
             Created = DateTime.Now;
         }
-
-
     }
 }

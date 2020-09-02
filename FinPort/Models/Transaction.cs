@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using FinPort.Enums;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,7 @@ namespace FinPort.Models
         [Display(Name = "Bank Account")]
         public int AccountId { get; set; }
 
-        public virtual BankAccount BankAccount { get; set; }
+        public virtual BankAccount Account { get; set; }
 
         public int? BudgetItemId { get; set; }
 
@@ -24,7 +25,7 @@ namespace FinPort.Models
 
         public virtual ApplicationUser Owner { get; set; }
 
-        // public TransactionType TransactionType { get; set; }
+        public TransactionType TransactionType { get; set; }
 
         public DateTime Created { get; set; }
 

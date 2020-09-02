@@ -31,14 +31,14 @@ namespace FinPort.Models
 
         [NotMapped]
         [Display(Name = "Target Amount")]
-        public decimal TargetAmount 
+        public decimal TargetAmount
         {
-            get 
+            get
             {
                 var target = db.BudgetItems.Where(bI => bI.BudgetId == Id).Count();
                 return target != 0 ? db.BudgetItems.Where(bI => bI.BudgetId == Id).Sum(s => s.TargetAmount) : 0;
             }
-         }
+        }
 
         public virtual ICollection<BudgetItem> Items { get; set; }
 
@@ -49,3 +49,4 @@ namespace FinPort.Models
             OwnerId = HttpContext.Current.User.Identity.GetUserId();
         }
     }
+}
