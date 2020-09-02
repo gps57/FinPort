@@ -76,18 +76,16 @@ namespace FinPort.Models
 
         public DbSet<BudgetItem> BudgetItems { get; set; }
 
-        public System.Data.Entity.DbSet<FinPort.Models.BankAccount> BankAccounts { get; set; }
+        public DbSet<BankAccount> BankAccounts { get; set; }
 
-        public System.Data.Entity.DbSet<FinPort.Models.Household> Households { get; set; }
+        public DbSet<Household> Households { get; set; }
 
-        public System.Data.Entity.DbSet<FinPort.Models.ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
 
-        public System.Data.Entity.DbSet<FinPort.Models.Budget> Budgets { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
 
-        public System.Data.Entity.DbSet<FinPort.Models.Invitation> Invitations { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
-        public System.Data.Entity.DbSet<FinPort.Models.Notification> Notifications { get; set; }
-
-        public System.Data.Entity.DbSet<FinPort.Models.Transaction> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

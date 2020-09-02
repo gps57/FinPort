@@ -40,7 +40,7 @@ namespace FinPort.Controllers
         public ActionResult Create()
         {
             ViewBag.HouseHoldId = new SelectList(db.Households, "Id", "HouseholdName");
-            ViewBag.RecipientId = new SelectList(db.ApplicationUsers, "Id", "FirstName");
+            ViewBag.RecipientId = new SelectList(db.Users, "Id", "FirstName");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace FinPort.Controllers
             }
 
             ViewBag.HouseHoldId = new SelectList(db.Households, "Id", "HouseholdName", notification.HouseHoldId);
-            ViewBag.RecipientId = new SelectList(db.ApplicationUsers, "Id", "FirstName", notification.RecipientId);
+            ViewBag.RecipientId = new SelectList(db.Users, "Id", "FirstName", notification.RecipientId);
             return View(notification);
         }
 
@@ -76,7 +76,7 @@ namespace FinPort.Controllers
                 return HttpNotFound();
             }
             ViewBag.HouseHoldId = new SelectList(db.Households, "Id", "HouseholdName", notification.HouseHoldId);
-            ViewBag.RecipientId = new SelectList(db.ApplicationUsers, "Id", "FirstName", notification.RecipientId);
+            ViewBag.RecipientId = new SelectList(db.Users, "Id", "FirstName", notification.RecipientId);
             return View(notification);
         }
 
@@ -94,7 +94,7 @@ namespace FinPort.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.HouseHoldId = new SelectList(db.Households, "Id", "HouseholdName", notification.HouseHoldId);
-            ViewBag.RecipientId = new SelectList(db.ApplicationUsers, "Id", "FirstName", notification.RecipientId);
+            ViewBag.RecipientId = new SelectList(db.Users, "Id", "FirstName", notification.RecipientId);
             return View(notification);
         }
 
