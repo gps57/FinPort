@@ -4,14 +4,20 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using FinPort.Extensions;
+using FinPort.Helpers;
 using FinPort.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinPort.Controllers
 {
     public class HouseholdsController : Controller
     {
+        UserRolesHelper rolesHelper = new UserRolesHelper();
+
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Households
@@ -46,12 +52,21 @@ namespace FinPort.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,HouseholdName,Greeting,Created,IsDeleted")] Household household)
+        public async Task<ActionResult> Create([Bind(Include = "Id,HouseholdName,Greeting")] Household household)
         {
             if (ModelState.IsValid)
             {
+                household.Created = DateTime.Now;  // this may come out later
                 db.Households.Add(household);
                 db.SaveChanges();
+
+                var user = db.Users.Find(User.Identity.GetUserId());
+                user.HouseholdId = household.Id;
+                rolesHelper.UpdateUserRole(user.Id, "Head");
+                db.SaveChanges();
+
+                await AuthorizeExtensions.RefreshAuthentication(HttpContext, user);
+
                 return RedirectToAction("Index");
             }
 

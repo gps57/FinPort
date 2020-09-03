@@ -11,7 +11,7 @@ namespace FinPort.Helpers
     public class UserRolesHelper
     {
         private UserManager<ApplicationUser> userManager =
-    new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
         public bool IsUserInRole(string userId, string roleName)
         {
@@ -59,6 +59,22 @@ namespace FinPort.Helpers
         {
             var result = userManager.RemoveFromRole(userId, roleName);
             return result.Succeeded;
+        }
+
+        public bool UpdateUserRole(string userId, string roleName)
+        {
+            var currentRoles = ListUserRoles(userId);
+
+            if(currentRoles.Count != 0)
+            {
+                foreach(var role in currentRoles)
+                {
+                    RemoveUserFromRole(userId, role);
+                }
+            }
+
+            return AddUserToRole(userId, roleName);
+            
         }
 
         public ICollection<ApplicationUser> UsersInRole(string roleName)

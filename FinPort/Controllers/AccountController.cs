@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FinPort.Models;
+using FinPort.Helpers;
 
 namespace FinPort.Controllers
 {
@@ -17,6 +18,7 @@ namespace FinPort.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private UserRolesHelper rolesHelper = new UserRolesHelper();
 
         public AccountController()
         {
@@ -155,6 +157,7 @@ namespace FinPort.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    rolesHelper.UpdateUserRole(user.Id, "New User");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

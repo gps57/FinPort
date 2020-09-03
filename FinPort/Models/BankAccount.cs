@@ -1,4 +1,5 @@
 ﻿using FinPort.Enums;
+using FinPort.Extensions;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,7 @@ namespace FinPort.Models
 
         public virtual ICollection<Transaction> Transactions { get; set; }
 
+        [Display(Name = "Account Type")]
         public AccountType AccountType { get; set; }
 
         public BankAccount(decimal startingBalance, decimal warningBalance, string accountName)
@@ -49,6 +51,7 @@ namespace FinPort.Models
             Created = DateTime.Now;
             AccountName = accountName;
             OwnerId = HttpContext.Current.User.Identity.GetUserId();
+            HouseholdId = (int)HttpContext.Current.User.Identity.GetHouseholdId();
         }
 
         public BankAccount()
